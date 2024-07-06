@@ -51,13 +51,22 @@ public class LoginController extends HttpServlet {
 
         UserDBContext db = new UserDBContext();
         User user = db.getUserByUsernamePassword(username, password);
-        if (user != null) {
-            request.getSession().setAttribute("user", user);
-            response.getWriter().println("login successful: " + user.getDisplayname());
+         if (user != null) {
+        request.getSession().setAttribute("user", user);
+        response.getWriter().println("login successful: " + user.getDisplayname());
+
+        if (user.getLecturer() != null) {
+            // Chuyển hướng đến trang giảng viên nếu user là giảng viên
             response.sendRedirect(request.getContextPath() + "/exam/lecturer");
+        } else if (user.getStudent() != null) {
+            // Chuyển hướng đến trang sinh viên nếu user là sinh viên
+            response.sendRedirect(request.getContextPath() + "/view/student");
         } else {
-            response.getWriter().println("login failed!");
+            response.getWriter().println("WHO TF ARE YOU !!!!!!!!!!!");
         }
+    } else {
+        response.getWriter().println("login failed!");
+    }   
 
     }
 

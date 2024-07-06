@@ -5,6 +5,7 @@
 
 package controller.student;
 
+import controller.auth.BaseRequiredStudentAuthenticationController;
 import dal.GradeDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,12 +15,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import model.Grade;
+import model.Student;
+import model.User;
 
 /**
  *
  * @author ASUS
  */
-public class ViewStudentGrade extends HttpServlet {
+public class ViewStudentGrade extends BaseRequiredStudentAuthenticationController {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,12 +42,13 @@ public class ViewStudentGrade extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response,User user, Student student)
     throws ServletException, IOException {
         GradeDBContext g = new GradeDBContext();
-        int sid = Integer.parseInt(request.getParameter("sid"));
+        int sid = student.getId();
         ArrayList<Grade> grades = g.viewStudentGrade(sid);
-        request.setAttribute("sid", sid);
+       request.setAttribute("sname", student.getName());
+        
         request.setAttribute("grades", grades);
         request.getRequestDispatcher("../view/student/grade.jsp").forward(request, response);
     } 
@@ -57,10 +61,11 @@ public class ViewStudentGrade extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response )
     throws ServletException, IOException {
-
+    
     }
+    
 
     /** 
      * Returns a short description of the servlet.
@@ -70,5 +75,10 @@ public class ViewStudentGrade extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response, User user, Student student) throws ServletException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }

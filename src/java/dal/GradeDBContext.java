@@ -120,29 +120,57 @@ public class GradeDBContext extends DBContext<Grade> {
     }
     public ArrayList<Grade> viewStudentGrade(int sid){
         ArrayList<Grade> grades = new ArrayList<>();
-        String query = "SELECT g.sid, s.sname, AVG(g.score) AS score, sub.subname "
-                       + "FROM grades g "
-                       + "JOIN students s ON g.sid = s.sid "
-                       + "JOIN exams e ON g.eid = e.eid "
-                       + "JOIN courses c ON c.cid IN (SELECT sc.cid FROM students_courses sc WHERE sc.sid = s.sid) "
-                       + "JOIN subjects sub ON c.subid = sub.subid "
-                       + "WHERE g.sid = ? "
-                       + "GROUP BY g.sid, s.sname, sub.subname "
-                       + "ORDER BY sub.subname";
+        String query = "SELECT \n" +
+"    g.sid, \n" +
+"    s.sname, \n" +
+"    sub.subname, \n" +
+"    a.aname, \n" +
+"    a.weight, \n" +
+"    AVG(g.score) AS score\n" +
+"FROM \n" +
+"    grades g \n" +
+"JOIN \n" +
+"    students s ON g.sid = s.sid \n" +
+"JOIN \n" +
+"    exams e ON g.eid = e.eid \n" +
+"JOIN \n" +
+"    assesments a ON e.aid = a.aid \n" +
+"JOIN \n" +
+"    subjects sub ON a.subid = sub.subid \n" +
+"JOIN \n" +
+"    courses c ON sub.subid = c.subid \n" +
+"JOIN \n" +
+"    students_courses sc ON c.cid = sc.cid AND s.sid = sc.sid \n" +
+"WHERE \n" +
+"    g.sid = ?\n" +
+"GROUP BY \n" +
+"    g.sid, \n" +
+"    s.sname, \n" +
+"    sub.subname, \n" +
+"    a.aname, \n" +
+"    a.weight\n" +
+"ORDER BY \n" +
+"    sub.subname, \n" +
+"    a.aname;";
         try {
             PreparedStatement stm = connection.prepareStatement(query);
             stm.setInt(1, sid);
             ResultSet rs = stm.executeQuery();
             while (rs.next()){
-                Student student = new Student();
+               Student student = new Student();
                 student.setId(rs.getInt("sid"));
                 student.setName(rs.getString("sname"));
 
                 Subject subject = new Subject();
                 subject.setName(rs.getString("subname"));
 
+                Assessment assessment = new Assessment();
+                assessment.setName(rs.getString("aname"));
+                assessment.setWeight(rs.getFloat("weight"));
+
                 Exam exam = new Exam();
                 exam.setSubject(subject);
+                exam.setAssessment(assessment);
 
                 Grade grade = new Grade();
                 grade.setStudent(student);
@@ -157,6 +185,7 @@ public class GradeDBContext extends DBContext<Grade> {
         }
         return grades;
     }
+    
     @Override
     public void insert(Grade model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
