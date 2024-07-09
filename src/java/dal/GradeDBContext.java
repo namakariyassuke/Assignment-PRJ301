@@ -67,32 +67,39 @@ public class GradeDBContext extends DBContext<Grade> {
     }
 
     public void insertGradesForCourse(int cid, ArrayList<Grade> grades) {
-        String sql_remove = "DELETE grades WHERE sid IN (SELECT sid FROM students_courses WHERE cid = ?)";
-        String sql_insert = "INSERT INTO [grades]\n"
-                + "           ([eid]\n"
-                + "           ,[sid]\n"
-                + "           ,[score])\n"
-                + "     VALUES\n"
-                + "           (?\n"
-                + "           ,?\n"
-                + "           ,?)";
-        
-        PreparedStatement stm_remove =null;
-        ArrayList<PreparedStatement> stm_inserts = new ArrayList<>();
-        
+        String sql_check = "SELECT COUNT(*) FROM grades WHERE sid = ? AND eid = ?";
+        String sql_update = "UPDATE grades SET score = ? WHERE sid = ? AND eid = ?";
+        String sql_insert = "INSERT INTO [grades] ([eid], [sid], [score]) VALUES (?, ?, ?)";
+
+        PreparedStatement stm_check = null;
+        PreparedStatement stm_update = null;
+        PreparedStatement stm_insert = null;
+
         try {
             connection.setAutoCommit(false);
-            stm_remove = connection.prepareStatement(sql_remove);
-            stm_remove.setInt(1, cid);
-            stm_remove.executeUpdate();
-            
+
+            stm_check = connection.prepareStatement(sql_check);
+            stm_update = connection.prepareStatement(sql_update);
+            stm_insert = connection.prepareStatement(sql_insert);
+
             for (Grade grade : grades) {
-                PreparedStatement stm_insert = connection.prepareStatement(sql_insert);
-                stm_insert.setInt(1, grade.getExam().getId());
-                stm_insert.setInt(2,grade.getStudent().getId());
-                stm_insert.setFloat(3, grade.getScore());
-                stm_insert.executeUpdate();
-                stm_inserts.add(stm_insert);
+                stm_check.setInt(1, grade.getStudent().getId());
+                stm_check.setInt(2, grade.getExam().getId());
+                ResultSet rs = stm_check.executeQuery();
+                if (rs.next() && rs.getInt(1) > 0) {
+                    // Update existing grade
+                    stm_update.setFloat(1, grade.getScore());
+                    stm_update.setInt(2, grade.getStudent().getId());
+                    stm_update.setInt(3, grade.getExam().getId());
+                    stm_update.executeUpdate();
+                } else {
+                    // Insert new grade
+                    stm_insert.setInt(1, grade.getExam().getId());
+                    stm_insert.setInt(2, grade.getStudent().getId());
+                    stm_insert.setFloat(3, grade.getScore());
+                    stm_insert.executeUpdate();
+                }
+                rs.close();
             }
             connection.commit();
         } catch (SQLException ex) {
@@ -102,13 +109,16 @@ public class GradeDBContext extends DBContext<Grade> {
             } catch (SQLException ex1) {
                 Logger.getLogger(GradeDBContext.class.getName()).log(Level.SEVERE, null, ex1);
             }
-        }
-        finally
-        {
+        } finally {
             try {
                 connection.setAutoCommit(true);
-                stm_remove.close();
-                for (PreparedStatement stm_insert : stm_inserts) {
+                if (stm_check != null) {
+                    stm_check.close();
+                }
+                if (stm_update != null) {
+                    stm_update.close();
+                }
+                if (stm_insert != null) {
                     stm_insert.close();
                 }
                 connection.close();
@@ -116,48 +126,27 @@ public class GradeDBContext extends DBContext<Grade> {
                 Logger.getLogger(GradeDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
     }
-    public ArrayList<Grade> viewStudentGrade(int sid){
+
+    public ArrayList<Grade> viewStudentGrade(int sid) {
         ArrayList<Grade> grades = new ArrayList<>();
-        String query = "SELECT \n" +
-"    g.sid, \n" +
-"    s.sname, \n" +
-"    sub.subname, \n" +
-"    a.aname, \n" +
-"    a.weight, \n" +
-"    AVG(g.score) AS score\n" +
-"FROM \n" +
-"    grades g \n" +
-"JOIN \n" +
-"    students s ON g.sid = s.sid \n" +
-"JOIN \n" +
-"    exams e ON g.eid = e.eid \n" +
-"JOIN \n" +
-"    assesments a ON e.aid = a.aid \n" +
-"JOIN \n" +
-"    subjects sub ON a.subid = sub.subid \n" +
-"JOIN \n" +
-"    courses c ON sub.subid = c.subid \n" +
-"JOIN \n" +
-"    students_courses sc ON c.cid = sc.cid AND s.sid = sc.sid \n" +
-"WHERE \n" +
-"    g.sid = ?\n" +
-"GROUP BY \n" +
-"    g.sid, \n" +
-"    s.sname, \n" +
-"    sub.subname, \n" +
-"    a.aname, \n" +
-"    a.weight\n" +
-"ORDER BY \n" +
-"    sub.subname, \n" +
-"    a.aname;";
+        String query = "SELECT  g.sid, s.sname, sub.subname, a.aname, a.weight, AVG(g.score) AS score\n"
+                + "FROM grades g \n"
+                + "JOIN students s ON g.sid = s.sid \n"
+                + "JOIN exams e ON g.eid = e.eid \n"
+                + "JOIN assesments a ON e.aid = a.aid \n"
+                + "JOIN subjects sub ON a.subid = sub.subid \n"
+                + "JOIN courses c ON sub.subid = c.subid \n"
+                + "JOIN students_courses sc ON c.cid = sc.cid AND s.sid = sc.sid \n"
+                + "WHERE g.sid = ?\n"
+                + "GROUP BY g.sid, s.sname, sub.subname, a.aname, a.weight\n"
+                + "ORDER BY sub.subname, a.aname";
         try {
             PreparedStatement stm = connection.prepareStatement(query);
             stm.setInt(1, sid);
             ResultSet rs = stm.executeQuery();
-            while (rs.next()){
-               Student student = new Student();
+            while (rs.next()) {
+                Student student = new Student();
                 student.setId(rs.getInt("sid"));
                 student.setName(rs.getString("sname"));
 
@@ -179,13 +168,13 @@ public class GradeDBContext extends DBContext<Grade> {
 
                 grades.add(grade);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return grades;
     }
-    
+
     @Override
     public void insert(Grade model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

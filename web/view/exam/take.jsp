@@ -59,9 +59,34 @@
                 border-radius: 5px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             }
+            .nav-buttons {
+                margin-bottom: 20px;
+            }
+            .nav-buttons a, .nav-buttons button {
+                padding: 10px 20px;
+                border-radius: 4px;
+                text-decoration: none;
+                color: white;
+                background-color: #4CAF50;
+                text-align: center;
+                border: none;
+                cursor: pointer;
+                margin-right: 10px;
+            }
+            .nav-buttons .logout {
+                background-color: #f44336;
+            }
+            .nav-buttons a:hover, .nav-buttons button:hover {
+                opacity: 0.8;
+            }
         </style>
     </head>
     <body>
+        <div class="nav-buttons">
+            <button onclick="history.back()">Back</button>
+            <a href="${pageContext.request.contextPath}/logout" class="logout">Logout</a>
+        </div>
+        
         <form action="take" method="POST">
             <table>
                 <thead>
@@ -100,4 +125,3 @@
         </form>
     </body>
 </html>
-

@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Take Grade</title>
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -59,13 +59,38 @@
                 margin-bottom: 5px;
                 display: block;
             }
+            .nav-buttons {
+                display: flex;
+                justify-content: space-between;
+            }
+            .nav-buttons a, .nav-buttons button {
+                padding: 10px 20px;
+                border-radius: 4px;
+                text-decoration: none;
+                color: white;
+                background-color: #4CAF50;
+                text-align: center;
+                border: none;
+                cursor: pointer;
+            }
+            .nav-buttons .logout {
+                background-color: #f44336;
+            }
+            .nav-buttons a:hover, .nav-buttons button:hover {
+                opacity: 0.8;
+            }
         </style>
     </head>
     <body>
         <div class="container">
+            <div class="nav-buttons">
+                <button onclick="history.back()">Back</button>
+                <a href="${pageContext.request.contextPath}/logout" class="logout">Logout</a>
+            </div>
             <c:if test="${requestScope.exams eq null}">
                 <c:if test="${requestScope.courses.size() > 0}">
                     <h1>Select Course</h1>
+                    <h2>Lecture: ${requestScope.lname}</h2>
                     <form action="lecturer" method="POST">
                         <input type="hidden" name="lid" value="${param.lid}"/>
                         <div class="form-group">
@@ -98,4 +123,3 @@
         </div>
     </body>
 </html>
-

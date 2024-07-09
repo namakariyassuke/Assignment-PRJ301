@@ -24,6 +24,10 @@
         <servlet-name>ViewStudentGrade</servlet-name>
         <servlet-class>controller.student.ViewStudentGrade</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutServerlet</servlet-name>
+        <servlet-class>controller.auth.LogoutServerlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCourseByLecturerController</servlet-name>
         <url-pattern>/exam/lecturer</url-pattern>
@@ -44,5 +48,8 @@
         <servlet-name>ViewStudentGrade</servlet-name>
         <url-pattern>/view/student</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>LogoutServerlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
 </web-app>

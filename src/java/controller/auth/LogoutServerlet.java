@@ -2,27 +2,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controller.auth;
 
-import dal.UserDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.User;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author sonnt-local
+ * @author ASUS
  */
-public class LoginController extends HttpServlet {
+public class LogoutServerlet extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -30,14 +38,17 @@ public class LoginController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.getRequestDispatcher("view/auth/login.jsp").forward(request, response);
-
+    throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate(); 
+        }
+        response.sendRedirect(request.getContextPath() + "/login"); 
     }
+     
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -45,38 +56,12 @@ public class LoginController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String errorMessage = null;
-        if (username == null || username.isEmpty() || password == null || password.isEmpty()) 
-            errorMessage = "Please enter username and password";
-         else {
-            UserDBContext db = new UserDBContext();
-            User user = db.getUserByUsernamePassword(username, password);
+    throws ServletException, IOException {
 
-            if (user == null) 
-                errorMessage = "WHO TF ARE YOU !!!!!!!!!!!";
-             else {
-                request.getSession().setAttribute("user", user);
-
-                if (user.getLecturer() != null) {
-                    response.sendRedirect(request.getContextPath() + "/exam/lecturer");
-                    return;
-                } else if (user.getStudent() != null) {
-                    response.sendRedirect(request.getContextPath() + "/view/student");
-                    return;
-                } 
-            }
-        }
-
-        request.setAttribute("errorMessage", errorMessage);
-        request.getRequestDispatcher("view/auth/login.jsp").forward(request, response);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override
