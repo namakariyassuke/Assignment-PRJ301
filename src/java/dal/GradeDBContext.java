@@ -141,10 +141,12 @@ public class GradeDBContext extends DBContext<Grade> {
                 + "WHERE g.sid = ?\n"
                 + "GROUP BY g.sid, s.sname, sub.subname, a.aname, a.weight\n"
                 + "ORDER BY sub.subname, a.aname";
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement stm = connection.prepareStatement(query);
+            stm = connection.prepareStatement(query);
             stm.setInt(1, sid);
-            ResultSet rs = stm.executeQuery();
+            rs = stm.executeQuery();
             while (rs.next()) {
                 Student student = new Student();
                 student.setId(rs.getInt("sid"));
@@ -168,9 +170,30 @@ public class GradeDBContext extends DBContext<Grade> {
 
                 grades.add(grade);
             }
-
         } catch (SQLException ex) {
-            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GradeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(GradeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (stm != null) {
+                try {
+                    stm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(GradeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(GradeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
         return grades;
     }
@@ -197,6 +220,10 @@ public class GradeDBContext extends DBContext<Grade> {
 
     @Override
     public ArrayList<Grade> list() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void close() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

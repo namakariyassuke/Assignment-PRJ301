@@ -28,6 +28,26 @@
         <servlet-name>LogoutServerlet</servlet-name>
         <servlet-class>controller.auth.LogoutServerlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminDashboardServerlet</servlet-name>
+        <servlet-class>controller.admin.AdminDashboardServerlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StudentScoreServerlet</servlet-name>
+        <servlet-class>controller.admin.StudentScoreServerlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <servlet-class>controller.admin.AdminDashboardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewStudentScoresServlet</servlet-name>
+        <servlet-class>controller.admin.ViewStudentScoresServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SelectStudentServerlet</servlet-name>
+        <servlet-class>controller.admin.SelectStudentServerlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ViewCourseByLecturerController</servlet-name>
         <url-pattern>/exam/lecturer</url-pattern>
@@ -51,5 +71,17 @@
     <servlet-mapping>
         <servlet-name>LogoutServerlet</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <url-pattern>/admin/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewStudentScoresServlet</servlet-name>
+        <url-pattern>/admin/viewStudentScores</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SelectStudentServerlet</servlet-name>
+        <url-pattern>/admin/selectStudent</url-pattern>
     </servlet-mapping>
 </web-app>

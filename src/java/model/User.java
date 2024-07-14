@@ -14,6 +14,16 @@ public class User {
     private String displayname;
     private Lecturer lecturer;
     private Student student;
+    private Admin admin;
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+    
 
     public String getUsername() {
         return username;
