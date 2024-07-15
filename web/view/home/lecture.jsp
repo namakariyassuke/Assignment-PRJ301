@@ -55,7 +55,7 @@
             <h3>Menu</h3>
             <a href="<%= request.getContextPath() %>/exam/lecturer">View Course and Edit Grade</a>
         </div>
-        <a href="<%= request.getContextPath() %>/auth/logout">Logout</a>
+        <a href="<%= request.getContextPath() %>/login">Logout</a>
     </div>
 </body>
 </html>
