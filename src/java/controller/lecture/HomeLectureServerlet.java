@@ -3,31 +3,30 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.exam;
+package controller.lecture;
 
-import controller.auth.BaseRequiredLecturerAuthenticationController;
-import dal.CourseDBContext;
-import dal.ExamDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import model.Course;
-import model.Exam;
-import model.Lecturer;
-import model.User;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author X1 Nano
+ * @author ASUS
  */
-public class ViewCourseByLecturerController extends BaseRequiredLecturerAuthenticationController {
+public class HomeLectureServerlet extends HttpServlet {
    
-    
-
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+ 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -37,14 +36,14 @@ public class ViewCourseByLecturerController extends BaseRequiredLecturerAuthenti
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response,User user, Lecturer lecturer)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        CourseDBContext db = new CourseDBContext();
-        int lid = lecturer.getId();
-        ArrayList<Course> courses = db.getCoursesByLecturer(lid);
-        request.setAttribute("lname", lecturer.getName());
-        request.setAttribute("courses", courses);
-        request.getRequestDispatcher("../view/exam/lecturer.jsp").forward(request, response);
+         HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect(request.getContextPath() + "/auth/login");
+            return;
+        }
+        request.getRequestDispatcher("/view/home/lecture.jsp").forward(request, response);
     } 
 
     /** 
@@ -55,18 +54,9 @@ public class ViewCourseByLecturerController extends BaseRequiredLecturerAuthenti
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response,User user, Lecturer lecturer)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int cid = Integer.parseInt(request.getParameter("cid"));
-        int lid = lecturer.getId();
-        
-        ExamDBContext db = new ExamDBContext();
-        ArrayList<Exam> exams = db.getExamsByCourse(cid);
-        request.setAttribute("exams", exams);
-        
-        request.getRequestDispatcher("../view/exam/lecturer.jsp").forward(request, response);
-        
-        
+
     }
 
     /** 

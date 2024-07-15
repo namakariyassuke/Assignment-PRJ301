@@ -10,11 +10,11 @@
     </filter-mapping>-->
     <servlet>
         <servlet-name>ViewCourseByLecturerController</servlet-name>
-        <servlet-class>controller.exam.ViewCourseByLecturerController</servlet-class>
+        <servlet-class>controller.lecture.ViewCourseByLecturerController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TakeExamController</servlet-name>
-        <servlet-class>controller.exam.TakeExamController</servlet-class>
+        <servlet-class>controller.lecture.TakeExamController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginController</servlet-name>
@@ -47,6 +47,18 @@
     <servlet>
         <servlet-name>SelectStudentServerlet</servlet-name>
         <servlet-class>controller.admin.SelectStudentServerlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AverageScoreController</servlet-name>
+        <servlet-class>controller.admin.AverageScoreController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeLectureServerlet</servlet-name>
+        <servlet-class>controller.lecture.HomeLectureServerlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeStudentServerlet</servlet-name>
+        <servlet-class>controller.student.HomeStudentServerlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewCourseByLecturerController</servlet-name>
@@ -83,5 +95,13 @@
     <servlet-mapping>
         <servlet-name>SelectStudentServerlet</servlet-name>
         <url-pattern>/admin/selectStudent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeLectureServerlet</servlet-name>
+        <url-pattern>/lecturer/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeStudentServerlet</servlet-name>
+        <url-pattern>/student/home</url-pattern>
     </servlet-mapping>
 </web-app>

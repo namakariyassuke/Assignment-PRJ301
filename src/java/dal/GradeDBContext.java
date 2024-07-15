@@ -197,6 +197,7 @@ public class GradeDBContext extends DBContext<Grade> {
         }
         return grades;
     }
+    
 
     @Override
     public void insert(Grade model) {

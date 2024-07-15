@@ -35,10 +35,10 @@ public class LoginController extends HttpServlet {
                 request.getSession().setAttribute("user", user);
 
                 if (user.getLecturer() != null) {
-                    response.sendRedirect(request.getContextPath() + "/exam/lecturer");
+                    response.sendRedirect(request.getContextPath() + "/lecturer/home");
                     return;
                 } else if (user.getStudent() != null) {
-                    response.sendRedirect(request.getContextPath() + "/view/student");
+                    response.sendRedirect(request.getContextPath() + "/student/home");
                     return;
                 } else if (user.getAdmin() != null) {
                     response.sendRedirect(request.getContextPath() + "/admin/dashboard");
