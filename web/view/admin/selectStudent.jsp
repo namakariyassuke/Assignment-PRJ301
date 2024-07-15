@@ -67,7 +67,7 @@
             <input type="submit" value="View Scores">
         </form>
         <a href="<%= request.getContextPath() %>/admin/dashboard">Back</a><br>
-        <a href="<%= request.getContextPath() %>/auth/logout">Logout</a>
+        <a href="<%= request.getContextPath() %>/login">Logout</a>
     </div>
 </body>
 </html>

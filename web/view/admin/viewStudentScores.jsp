@@ -73,7 +73,7 @@
             });
         </script>
         <a href="<%= request.getContextPath() %>/admin/selectStudent">Back</a><br>
-        <a href="<%= request.getContextPath() %>/auth/logout">Logout</a>
+        <a href="<%= request.getContextPath() %>/login">Logout</a>
     </div>
 </body>
 </html>

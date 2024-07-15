@@ -45,7 +45,7 @@
         <h2>Welcome, <%= ((User) session.getAttribute("user")).getDisplayname() %></h2>
         <p>This is the admin dashboard.</p>
         <a href="<%= request.getContextPath() %>/admin/selectStudent">View Student Scores</a><br>
-        <a href="<%= request.getContextPath() %>/auth/logout">Logout</a>
+        <a href="<%= request.getContextPath() %>/login">Logout</a>
     </div>
 </body>
 </html>
