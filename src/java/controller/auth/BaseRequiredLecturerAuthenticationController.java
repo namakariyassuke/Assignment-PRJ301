@@ -53,7 +53,7 @@ public abstract class BaseRequiredLecturerAuthenticationController extends HttpS
         }
         else
         {
-            response.getWriter().println("access denied!");
+            response.getWriter().println("NO MORE LOGIN!");
         }
     } 
     

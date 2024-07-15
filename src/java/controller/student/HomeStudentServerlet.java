@@ -41,7 +41,7 @@ public class HomeStudentServerlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/auth/login");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
         request.getRequestDispatcher("/view/home/student.jsp").forward(request, response);

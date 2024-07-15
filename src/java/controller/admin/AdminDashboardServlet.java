@@ -42,7 +42,7 @@ public class AdminDashboardServlet extends HttpServlet {
          HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
         if (session == null || user == null || user.getAdmin() == null) {
-            response.sendRedirect(request.getContextPath() + "/auth/login");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
         request.getRequestDispatcher("/view/admin/adminDashboard.jsp").forward(request, response);
