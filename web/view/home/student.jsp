@@ -50,7 +50,7 @@
 <body>
     <div class="container">
         <h2>Welcome, <%= ((User) session.getAttribute("user")).getDisplayname() %></h2>
-        <p>This is the student's home page.</p>
+        <p>What are you looking for.</p>
         <div class="menu">
             <h3>Menu</h3>
             <a href="<%= request.getContextPath() %>/view/student">View My Grades</a>
