@@ -3,27 +3,39 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/model/User.java</file>
             <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/controller/admin/SelectStudentServerlet.java</file>
             <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/dal/UserDBContext.java</file>
-            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/web/view/student/grade.jsp</file>
             <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/web/view/auth/login.jsp</file>
-            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/controller/auth/LoginController.java</file>
             <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/model/Grade.java</file>
             <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/dal/StudentDBContext.java</file>
-            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/model/Student.java</file>
             <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/web/view/admin/viewStudentScores.jsp</file>
             <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/web/WEB-INF/web.xml</file>
-            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/dal/ExamDBContext.java</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/web/view/exam/lecturer.jsp</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/controller/lecture/HomeLectureServerlet.java</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/controller/student/HomeStudentServerlet.java</file>
             <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/controller/admin/ViewStudentScoresServlet.java</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/web/view/home/student.jsp</file>
             <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/controller/auth/LogoutServerlet.java</file>
             <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/dal/GradeDBContext.java</file>
             <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/dal/CourseDBContext.java</file>
-            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/web/view/admin/adminDashboard.jsp</file>
             <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/web/view/admin/selectStudent.jsp</file>
-            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/controller/admin/AdminDashboardServlet.java</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/controller/auth/BaseRequiredStudentAuthenticationController.java</file>
             <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/controller/student/ViewStudentGrade.java</file>
             <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/model/Admin.java</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/model/User.java</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/dal/DBContext.java</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/web/view/student/grade.jsp</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/controller/auth/BaseRequiredLecturerAuthenticationController.java</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/controller/auth/LoginController.java</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/web/view/home/lecture.jsp</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/model/Student.java</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/web/view/exam/take.jsp</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/dal/ExamDBContext.java</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/controller/lecture/TakeExamController.java</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/controller/auth/RequiredLecturerCheckingFilter.java</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/web/view/admin/adminDashboard.jsp</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/controller/admin/AdminDashboardServlet.java</file>
+            <file>file:/D:/Yassuke's_Floder/Chuyen_Nganh/Summer2024/PRJ301/myassignment/src/java/controller/lecture/ViewCourseByLecturerController.java</file>
         </group>
     </open-files>
 </project-private>
