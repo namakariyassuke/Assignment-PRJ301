@@ -56,6 +56,9 @@
         a:hover {
             text-decoration: underline;
         }
+        .error {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -66,11 +69,21 @@
             <input type="text" id="studentId" name="sid"><br><br>
             <input type="submit" value="View Scores">
         </form>
+        <%
+            String errorMessage = (String) request.getAttribute("errorMessage");
+            if (errorMessage != null) {
+        %>
+            <p class="error"><%= errorMessage %></p>
+        <%
+            }
+        %>
         <a href="<%= request.getContextPath() %>/admin/dashboard">Back</a><br>
-        <a href="<%= request.getContextPath() %>/login">Logout</a>
+        <a href="<%= request.getContextPath() %>/auth/logout">Logout</a>
     </div>
 </body>
 </html>
+
+
 
 
 
