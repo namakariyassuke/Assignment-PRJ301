@@ -39,13 +39,16 @@ public class HomeStudentServerlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         // Retrieve the current session without creating a new one if it doesn't exist
         HttpSession session = request.getSession(false);
+        // Check if the session or user attribute is null
         if (session == null || session.getAttribute("user") == null) {
+            // Redirect to the login page if the user is not authenticated
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
+        // Forward the request to the student's home page JSP
         request.getRequestDispatcher("/view/home/student.jsp").forward(request, response);
-
     }
 
     /**

@@ -40,14 +40,18 @@ public class SelectStudentServerlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+         // Get the current session, do not create one if it doesn't exist
         HttpSession session = request.getSession(false);
+        // Get the user from the session
         User user = (User) session.getAttribute("user");
+        // Check if session or user is null, or if user is not an admin
         if (session == null || user == null || user.getAdmin() == null) {
+            // Redirect to login page if the user is not authenticated
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
+        // Forward the request to the select student JSP page
         request.getRequestDispatcher("/view/admin/selectStudent.jsp").forward(request, response);
-    
     } 
 
     /** 

@@ -13,9 +13,10 @@
     <meta charset="UTF-8">
     <title>Student Scores</title>
     <style>
+        /* CSS styles for the page */
         body {
             font-family: Arial, sans-serif;
-            background-color: #ffffff; /* Đổi màu nền thành màu trắng */
+            background-color: #ffffff; /* Change background color to white */
             margin: 0;
             padding: 0;
         }
@@ -40,19 +41,25 @@
             text-decoration: underline;
         }
     </style>
+    <!-- Import Chart.js library from CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
+        <!-- Display student name -->
         <h2>Scores for <%= request.getAttribute("studentName") %></h2>
+        <!-- Canvas element for Chart.js -->
         <canvas id="scoreChart" width="400" height="200"></canvas>
         <script>
+            // Convert labels and scores from server-side to JavaScript variables
             var labels = [<%= ((List<String>) request.getAttribute("labels")).stream().map(label -> "'" + label + "'").collect(Collectors.joining(",")) %>];
             var scores = [<%= ((List<Float>) request.getAttribute("scores")).stream().map(String::valueOf).collect(Collectors.joining(",")) %>];
 
+            // Get the context of the canvas element
             var ctx = document.getElementById('scoreChart').getContext('2d');
+            // Create a new Chart instance
             var scoreChart = new Chart(ctx, {
-                type: 'line', // Đổi thành biểu đồ đường
+                type: 'line', // Change to line chart
                 data: {
                     labels: labels,
                     datasets: [{
@@ -61,19 +68,20 @@
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderColor: 'rgba(75, 192, 192, 1)',
                         borderWidth: 1,
-                        fill: false, // Không tô màu dưới đường
-                        tension: 0.1 // Độ cong của đường
+                        fill: false, // Do not fill the area under the line
+                        tension: 0.1 // Set line tension for smoothing
                     }]
                 },
                 options: {
                     scales: {
                         y: {
-                            beginAtZero: true
+                            beginAtZero: true // Start y-axis at zero
                         }
                     }
                 }
             });
         </script>
+        <!-- Links for navigation -->
         <a href="<%= request.getContextPath() %>/admin/selectStudent">Back</a><br>
         <a href="<%= request.getContextPath() %>/login">Logout</a>
     </div>

@@ -39,11 +39,16 @@ public class ViewCourseByLecturerController extends BaseRequiredLecturerAuthenti
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response,User user, Lecturer lecturer)
     throws ServletException, IOException {
+        // Initialize database context for courses
         CourseDBContext db = new CourseDBContext();
+        // Get the lecturer ID
         int lid = lecturer.getId();
+        // Retrieve courses taught by the lecturer
         ArrayList<Course> courses = db.getCoursesByLecturer(lid);
+        // Set attributes for lecturer name and courses
         request.setAttribute("lname", lecturer.getName());
         request.setAttribute("courses", courses);
+        // Forward the request to the lecturer.jsp page
         request.getRequestDispatcher("../view/exam/lecturer.jsp").forward(request, response);
     } 
 
@@ -57,16 +62,20 @@ public class ViewCourseByLecturerController extends BaseRequiredLecturerAuthenti
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response,User user, Lecturer lecturer)
     throws ServletException, IOException {
+       // Get the course ID from the request parameter
         int cid = Integer.parseInt(request.getParameter("cid"));
+        // Get the lecturer ID
         int lid = lecturer.getId();
         
+        // Initialize database context for exams
         ExamDBContext db = new ExamDBContext();
+        // Retrieve exams for the selected course
         ArrayList<Exam> exams = db.getExamsByCourse(cid);
+        // Set attribute for exams
         request.setAttribute("exams", exams);
         
+        // Forward the request to the lecturer.jsp page
         request.getRequestDispatcher("../view/exam/lecturer.jsp").forward(request, response);
-        
-        
     }
 
     /** 

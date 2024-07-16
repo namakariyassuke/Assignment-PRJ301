@@ -44,12 +44,16 @@ public class ViewStudentGrade extends BaseRequiredStudentAuthenticationControlle
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response,User user, Student student)
     throws ServletException, IOException {
+        // Initialize database context for grades
         GradeDBContext g = new GradeDBContext();
+        // Get the student ID
         int sid = student.getId();
+        // Retrieve grades for the authenticated student
         ArrayList<Grade> grades = g.viewStudentGrade(sid);
-       request.setAttribute("sname", student.getName());
-        
+        // Set attributes for student name and grades
+        request.setAttribute("sname", student.getName());
         request.setAttribute("grades", grades);
+        // Forward the request to the grade.jsp page
         request.getRequestDispatcher("../view/student/grade.jsp").forward(request, response);
     } 
 

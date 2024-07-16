@@ -23,11 +23,13 @@ public abstract class BaseRequiredLecturerAuthenticationController extends HttpS
    
     private boolean isAuthenticated(HttpServletRequest request)
     {
+       // Retrieve the user from the session
         User user = (User)request.getSession().getAttribute("user");
-        if(user ==null)
+        // Check if the user is null
+        if (user == null) {
             return false;
-        else
-        {
+        } else {
+            // Check if the user has lecturer privileges
             Lecturer lecturer = user.getLecturer();
             return lecturer != null;
         }
@@ -46,13 +48,14 @@ public abstract class BaseRequiredLecturerAuthenticationController extends HttpS
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+         // Retrieve the user from the session
         User user = (User)request.getSession().getAttribute("user");
-        if(isAuthenticated(request))
-        {
+        // Check if the user is authenticated
+        if (isAuthenticated(request)) {
+            // Delegate to the abstract doGet method
             doGet(request, response, user, user.getLecturer());
-        }
-        else
-        {
+        } else {
+            // Print an error message if the user is not authenticated
             response.getWriter().println("NO MORE LOGIN!");
         }
     } 
@@ -73,13 +76,14 @@ public abstract class BaseRequiredLecturerAuthenticationController extends HttpS
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+         // Retrieve the user from the session
         User user = (User)request.getSession().getAttribute("user");
-        if(isAuthenticated(request))
-        {
+        // Check if the user is authenticated
+        if (isAuthenticated(request)) {
+            // Delegate to the abstract doPost method
             doPost(request, response, user, user.getLecturer());
-        }
-        else
-        {
+        } else {
+            // Print an error message if the user is not authenticated
             response.getWriter().println("access denied!");
         }
     }

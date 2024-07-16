@@ -22,11 +22,13 @@ import model.User;
 public abstract class BaseRequiredAdminAuthenticationController extends HttpServlet {
    private boolean isAuthenticated(HttpServletRequest request)
     {
-        User user = (User)request.getSession().getAttribute("user");
-        if(user ==null)
+       // Retrieve the user from the session
+        User user = (User) request.getSession().getAttribute("user");
+        // Check if the user is null
+        if (user == null) {
             return false;
-        else
-        {
+        } else {
+            // Check if the user has admin privileges
             Admin admin = user.getAdmin();
             return admin != null;
         }
@@ -45,13 +47,14 @@ public abstract class BaseRequiredAdminAuthenticationController extends HttpServ
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        User user = (User)request.getSession().getAttribute("user");
-        if(isAuthenticated(request))
-        {
+        // Retrieve the user from the session
+        User user = (User) request.getSession().getAttribute("user");
+        // Check if the user is authenticated
+        if (isAuthenticated(request)) {
+            // Delegate to the abstract doGet method
             doGet(request, response, user, user.getAdmin());
-        }
-        else
-        {
+        } else {
+            // Print an error message if the user is not authenticated
             response.getWriter().println("NO MORE LOGIN!");
         }
     } 
@@ -72,14 +75,15 @@ public abstract class BaseRequiredAdminAuthenticationController extends HttpServ
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        User user = (User)request.getSession().getAttribute("user");
-        if(isAuthenticated(request))
-        {
+        // Retrieve the user from the session
+        User user = (User) request.getSession().getAttribute("user");
+        // Check if the user is authenticated
+        if (isAuthenticated(request)) {
+            // Delegate to the abstract doPost method
             doPost(request, response, user, user.getAdmin());
-        }
-        else
-        {
-            response.getWriter().println("access denied!");
+        } else {
+            // Print an error message if the user is not authenticated
+            response.getWriter().println("NO MORE LOGIN!");
         }
     }
 

@@ -18,13 +18,18 @@ public class ViewStudentScoresServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Get the current session, do not create one if it doesn't exist
         HttpSession session = request.getSession(false);
+        // Check if the session or user is null
         if (session == null || session.getAttribute("user") == null) {
+            // Redirect to login page if the user is not authenticated
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
+        // Get the student ID from the request parameters
         String studentIdParam = request.getParameter("sid");
+        // Check if the student ID is missing or empty
         if (studentIdParam == null || studentIdParam.isEmpty()) {
             request.setAttribute("errorMessage", "Student ID is missing.");
             request.getRequestDispatcher("/view/admin/selectStudent.jsp").forward(request, response);
@@ -33,6 +38,7 @@ public class ViewStudentScoresServlet extends HttpServlet {
 
         int studentId;
         try {
+            // Parse the student ID to an integer
             studentId = Integer.parseInt(studentIdParam);
         } catch (NumberFormatException e) {
             request.setAttribute("errorMessage", "Invalid Student ID.");
@@ -40,18 +46,22 @@ public class ViewStudentScoresServlet extends HttpServlet {
             return;
         }
 
+        // Create instances of the database context classes
         GradeDBContext gradeDB = new GradeDBContext();
         StudentDBContext studentDB = new StudentDBContext();
 
+        // Retrieve the grades and student information from the database
         ArrayList<Grade> grades = gradeDB.viewStudentGrade(studentId);
         Student student = studentDB.get(studentId);
 
+        // Check if the student exists
         if (student == null) {
             request.setAttribute("errorMessage", "Student does not exist.");
             request.getRequestDispatcher("/view/admin/selectStudent.jsp").forward(request, response);
             return;
         }
 
+        // Prepare labels and scores for the chart
         List<String> labels = new ArrayList<>();
         List<Float> scores = new ArrayList<>();
 
@@ -60,9 +70,11 @@ public class ViewStudentScoresServlet extends HttpServlet {
             scores.add(grade.getScore());
         }
 
+        // Set attributes to be forwarded to the JSP page
         request.setAttribute("studentName", student.getName());
         request.setAttribute("labels", labels);
         request.setAttribute("scores", scores);
+        // Forward the request to the viewStudentScores JSP page
         request.getRequestDispatcher("/view/admin/viewStudentScores.jsp").forward(request, response);
     }
 
