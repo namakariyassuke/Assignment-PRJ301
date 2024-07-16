@@ -15,7 +15,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #ffffff; /* Đổi màu nền thành màu trắng */
             margin: 0;
             padding: 0;
         }
@@ -52,7 +52,7 @@
 
             var ctx = document.getElementById('scoreChart').getContext('2d');
             var scoreChart = new Chart(ctx, {
-                type: 'bar',
+                type: 'line', // Đổi thành biểu đồ đường
                 data: {
                     labels: labels,
                     datasets: [{
@@ -60,7 +60,9 @@
                         data: scores,
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
+                        borderWidth: 1,
+                        fill: false, // Không tô màu dưới đường
+                        tension: 0.1 // Độ cong của đường
                     }]
                 },
                 options: {
@@ -77,6 +79,3 @@
     </div>
 </body>
 </html>
-
-
-
