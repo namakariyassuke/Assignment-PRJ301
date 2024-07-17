@@ -3,71 +3,71 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grade Transcript</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f5f5f5;
-        }
-        h1, h2 {
-            text-align: center;
-            color: #333;
-        }
-        .course-select {
-            width: 60%;
-            margin: 20px auto;
-            text-align: center;
-        }
-        .course-select select {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        th, td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-            text-transform: uppercase;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        .hidden {
-            display: none;
-        }
-        .total {
-            font-weight: bold;
-            background-color: #e9e9e9;
-        }
-        .status-passed {
-            color: green;
-        }
-        .status-failed {
-            color: red;
-        }
-    </style>
-</head>
-<body>
-    <h1>Grade Transcript</h1>
-    <h2>Student's Name: ${requestScope.sname}</h2>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Grade Transcript</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                background-color: #f5f5f5;
+            }
+            h1, h2 {
+                text-align: center;
+                color: #333;
+            }
+            .course-select {
+                width: 60%;
+                margin: 20px auto;
+                text-align: center;
+            }
+            .course-select select {
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
+            table {
+                width: 80%;
+                margin: 20px auto;
+                border-collapse: collapse;
+                background-color: #fff;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            th, td {
+                padding: 12px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+            th {
+                background-color: #4CAF50;
+                color: white;
+                text-transform: uppercase;
+            }
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            tr:hover {
+                background-color: #f1f1f1;
+            }
+            .hidden {
+                display: none;
+            }
+            .total {
+                font-weight: bold;
+                background-color: #e9e9e9;
+            }
+            .status-passed {
+                color: green;
+            }
+            .status-failed {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Grade Transcript</h1>
+        <h2>Student's Name: ${requestScope.sname}</h2>
     </div>
     <form action="student" method="post">
         <input type="hidden" name="sid" value="${param.sid}"/>
@@ -112,5 +112,7 @@
             </tfoot>
         </table>
     </form>
+    <a href="${pageContext.request.contextPath}/logout" class="logout">Logout</a>
+
 </body>
 </html>
